@@ -1,0 +1,20 @@
+.control-panel {
+}
+.control-panel__menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 280px;
+}
+.control-panel__menu select {
+  flex-grow: 1;
+  font-size: 15px;
+}
+.control-panel__menu img {
+  cursor: pointer;
+}
+
+.control-panel__menu * {
+  margin: 10px 0;
+  height: 30px;
+}
