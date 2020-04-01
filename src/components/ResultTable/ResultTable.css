@@ -1,0 +1,20 @@
+.result-table {
+  margin: 25px 0;
+}
+.result-table table {
+  border-spacing: 0;
+  border: 1px solid black;
+  border-bottom: 0;
+}
+.result-table th {
+  background-color: #cccccc;
+}
+.result-table th, td {
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+.result-table tr :last-child {
+  border-right: 0;
+}
