@@ -1,10 +1,15 @@
 .control-panel {
+  margin-top: 30px;
+}
+.control-panel__period-str {
+  font-size: 15px;
 }
 .control-panel__menu {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 280px;
+  min-width: 280px;
+  max-width: 360px;
 }
 .control-panel__menu select {
   flex-grow: 1;
