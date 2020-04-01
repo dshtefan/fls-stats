@@ -1,20 +1,26 @@
 .result-table {
-  margin: 25px 0;
+   margin: 15px 0;
 }
 .result-table table {
-  border-spacing: 0;
-  border: 1px solid black;
-  border-bottom: 0;
+   border-spacing: 0;
+   border: 1px solid;
+   border-bottom: 0;
 }
 .result-table th {
-  background-color: #cccccc;
+   background-color: #cccccc;
 }
 .result-table th, td {
-  margin: 0;
-  padding: 0.5rem;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+   margin: 0;
+   padding: 0.5rem;
+   border-bottom: 1px solid;
+   border-right: 1px solid;
+}
+@media (max-width: 375px) {
+   .result-table th, td {
+      padding: 0.3rem;
+   }
+   
 }
 .result-table tr :last-child {
-  border-right: 0;
+   border-right: 0;
 }

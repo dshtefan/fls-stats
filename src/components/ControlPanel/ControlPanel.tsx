@@ -48,7 +48,6 @@ const ControlPanel:React.FunctionComponent<{}> = () => {
          <div className="control-panel__menu">
             <img src={prevIco} alt="" onClick={prev}/>
             <select name="period" value={range} onChange={onChange}>
-               <option disabled>Select period</option>
                <option value={Range.Day}>One day</option>
                <option value={Range.Week}>One week</option>
                <option value={Range.Month}>One month</option>

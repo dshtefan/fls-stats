@@ -1,25 +1,26 @@
 .control-panel {
-  margin-top: 30px;
+   margin-top: 20px;
 }
 .control-panel__period-str {
-  font-size: 15px;
+   font-size: 15px;
 }
 .control-panel__menu {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 280px;
-  max-width: 360px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   min-width: 280px;
+   max-width: 360px;
 }
 .control-panel__menu select {
-  flex-grow: 1;
-  font-size: 15px;
+   flex-grow: 1;
+   font-size: 15px;
+   text-align-last: center;
 }
 .control-panel__menu img {
-  cursor: pointer;
+   cursor: pointer;
 }
 
 .control-panel__menu * {
-  margin: 10px 0;
-  height: 30px;
+   margin: 10px 0;
+   height: 30px;
 }
