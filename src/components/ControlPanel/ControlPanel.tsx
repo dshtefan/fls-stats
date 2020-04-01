@@ -1,25 +1,23 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import {Range} from "../../enums";
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 import './ControlPanel.css'
 
 import prevIco from './svg/prev.svg';
 import nextIco from './svg/next.svg';
 
-enum Range {
-   Day,
-   Week,
-   Month,
-   Quarter
-}
-
-
-const ControlPanel:React.FunctionComponent<{}> = () => {
-   const [range, setRange] = useState<Range>(Range.Day);
+const ControlPanel = ({changePeriod, state}) => {
+   const [range, setRange] = useState<Range>(Range.day);
    const leftDate = '2020-01-15';
    const rightDate = '2020-05-15';
 
+   useEffect(() => console.log(state), [state]);
+
    useEffect(() => {
       console.log(range);
-   }, [range]);
+      changePeriod(range);
+   }, [changePeriod, range]);
 
    const dateToStr = (date: string): string => {
       const months = [
@@ -48,10 +46,10 @@ const ControlPanel:React.FunctionComponent<{}> = () => {
          <div className="control-panel__menu">
             <img src={prevIco} alt="" onClick={prev}/>
             <select name="period" value={range} onChange={onChange}>
-               <option value={Range.Day}>One day</option>
-               <option value={Range.Week}>One week</option>
-               <option value={Range.Month}>One month</option>
-               <option value={Range.Quarter}>One quarter</option>
+               <option value={Range.day}>One day</option>
+               <option value={Range.week}>One week</option>
+               <option value={Range.month}>One month</option>
+               <option value={Range.quarter}>One quarter</option>
             </select>
             <img src={nextIco} alt="" onClick={next}/>
          </div>
@@ -59,4 +57,8 @@ const ControlPanel:React.FunctionComponent<{}> = () => {
    )
 };
 
-export default ControlPanel;
+const mapStateToProps = (state) => ({state});
+
+const mapDispatchToProps = {...actions};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ControlPanel);
