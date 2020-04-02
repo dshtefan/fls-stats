@@ -20,7 +20,19 @@
    cursor: pointer;
 }
 
-.control-panel__menu * {
+.control_panel_menu-item {
    margin: 10px 0;
    height: 30px;
+}
+.control_panel_datepicker {
+   margin-top: 10px;
+}
+.control_panel_datepicker input{
+   border: 1px solid #66666666;
+   border-radius: 3px;
+   text-align: center;
+}
+#control_panel_period{
+   border: 1px solid #66666666;
+   border-radius: 3px;
 }

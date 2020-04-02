@@ -5,9 +5,9 @@ import './Graphs.css'
 const Graphs = () => {
    return (
       <div className="graphs">
-         <Graph />
-         <Graph />
-         <Graph />
+         <Graph name={'idea'} title={'IntelliJ IDEA'}/>
+         <Graph name={'webstorm'} title={'WebStorm'}/>
+         <Graph name={'goland'} title={'PHPStorm'}/>
       </div>
    )
 };

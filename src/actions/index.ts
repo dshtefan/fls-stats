@@ -1,43 +1,28 @@
 import axios from 'axios';
 import { Range } from "../enums";
 
-const statsByDayRequest = (date) => ({
-   type: 'REQUEST_STATS_BY_DAY',
+const addData = (data, period, date) => ({
+   type: 'ADD_DATA',
+   data,
+   period,
    date
 });
 
-const statsByWeekRequest = (date) => ({
-   type: 'REQUEST_STATS_BY_WEEK',
-   date
-});
-
-const statsByMonthRequest = (date) => ({
-   type: 'REQUEST_STATS_BY_MONTH',
-   date
-});
-
-const statsByQuarterRequest = (date) => ({
-   type: 'REQUEST_STATS_BY_QUARTER',
-   date
-});
-
-const changePeriodAct = (period) => ({
-   type: 'REQUEST_STATS_BY_QUARTER',
-   period
-});
-
-const changePeriod = (period: Range) => (dispatch) => {
+const updateData = (period: Range, date: Date) => (dispatch) => {
+   const y : number = date.getFullYear();
+   const m : number = date.getMonth() + 1;
+   const d : number = date.getDate();
+   const year: string = y.toString();
+   const month: string = m < 10 ? '0' + m : '' + m;
+   const day: string = d < 10 ? '0' + d : '' + d;
    return axios
-      .get(`http://localhost:3012/${Range[period]}?start_date=2019-04-20`)
-      .then((data) => console.log(data))
+      .get(`http://localhost:3012/${Range[period]}?start_date=${year}-${month}-${day}`)
+      .then((data) => data.data.data)
+      .then((data) => dispatch(addData(data, period, date)))
       .catch((data) => console.log(data))
 };
 
 
 export {
-   statsByDayRequest,
-   statsByWeekRequest,
-   statsByMonthRequest,
-   statsByQuarterRequest,
-   changePeriod
+   updateData
 };

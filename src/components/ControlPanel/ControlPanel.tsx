@@ -2,22 +2,21 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Range} from "../../enums";
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import './ControlPanel.css'
+import './ControlPanel.css';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 import prevIco from './svg/prev.svg';
 import nextIco from './svg/next.svg';
 
-const ControlPanel = ({changePeriod, state}) => {
+const ControlPanel = ({updateData, state}) => {
    const [range, setRange] = useState<Range>(Range.day);
-   const leftDate = '2020-01-15';
-   const rightDate = '2020-05-15';
-
-   useEffect(() => console.log(state), [state]);
+   const leftDate = new Date('2019-03-18');
+   const rightDate = new Date('2020-03-18');
 
    useEffect(() => {
-      console.log(range);
-      changePeriod(range);
-   }, [changePeriod, range]);
+      updateData(range, state.startDate);
+   }, [updateData, range, state.startDate]);
 
    const dateToStr = (date: string): string => {
       const months = [
@@ -41,17 +40,31 @@ const ControlPanel = ({changePeriod, state}) => {
    return (
       <div className="control-panel">
          <span className="control-panel__period-str">
-            {`From ${dateToStr(leftDate)} through ${dateToStr(rightDate)}`}
+            {`From ${dateToStr('leftDate')} through ${dateToStr('rightDate')}`}
          </span>
+         <div className={'control_panel_datepicker'}>
+            <span> Start date: <br/></span>
+            <DatePicker
+               selected={state.startDate}
+               onChange={date => updateData(range, date)}
+               minDate={leftDate}
+               maxDate={rightDate}
+               showDisabledMonthNavigation
+               showMonthDropdown
+               showYearDropdown
+            />
+         </div>
          <div className="control-panel__menu">
-            <img src={prevIco} alt="" onClick={prev}/>
-            <select name="period" value={range} onChange={onChange}>
+            <img className={'control_panel_menu-item'} src={prevIco} alt="" onClick={prev}/>
+            <select className={'control_panel_menu-item'} name="period" value={range} onChange={onChange}
+               id={'control_panel_period'}
+            >
                <option value={Range.day}>One day</option>
                <option value={Range.week}>One week</option>
                <option value={Range.month}>One month</option>
                <option value={Range.quarter}>One quarter</option>
             </select>
-            <img src={nextIco} alt="" onClick={next}/>
+            <img className={'control_panel_menu-item'} src={nextIco} alt="" onClick={next}/>
          </div>
       </div>
    )
