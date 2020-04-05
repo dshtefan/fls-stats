@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Range} from "../../enums";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import './ControlPanel.css';
 import DatePicker from 'react-datepicker';
@@ -18,7 +18,7 @@ const ControlPanel = ({updateData, state}) => {
       updateData(range, state.startDate);
    }, [updateData, range, state.startDate]);
 
-   const dateToStr = (date: string): string => {
+   const dateToStr = (date: Date): string => {
       const months = [
          'Jan', 'Feb', 'Mar',
          'Apr', 'May', 'Jun',
@@ -26,21 +26,40 @@ const ControlPanel = ({updateData, state}) => {
          'Oct', 'Nov', 'Dec'
       ];
 
-      const year = date.substring(0, 4);
-      const month = months[Number(date.substring(5, 7)) - 1];
-      const day = date.substring(8, 10);
+      const year = date.getFullYear();
+      const month = months[Number(date.getMonth())];
+      const day = date.getDate();
       return `${month} ${day}, ${year}`;
+   };
+
+   const nextDate = (date: Date, isPrev: boolean): Date => {
+      const res = new Date(date);
+      switch (range) {
+         case Range.day:
+            res.setDate(res.getDate() + (isPrev ? -1 : 1));
+            break;
+         case Range.week:
+            res.setTime(res.getTime() + (isPrev ? -604800000 : 604800000));
+            break;
+         case Range.month:
+            res.setMonth(res.getMonth() + (isPrev ? -1 : 1));
+            break;
+         case Range.quarter:
+            res.setMonth(res.getMonth() + (isPrev ? -3 : 3));
+            break;
+      }
+      return res;
    };
 
    const onChange = (event: ChangeEvent<HTMLSelectElement>) => setRange(Number(event.target.value));
 
-   const prev = () => {console.log('prev')};
-   const next = () => {console.log('next')};
+   const prev = () => updateData(range, nextDate(state.startDate, true));
+   const next = () => updateData(range, nextDate(state.startDate, false));
 
    return (
       <div className="control-panel">
          <span className="control-panel__period-str">
-            {`From ${dateToStr('leftDate')} through ${dateToStr('rightDate')}`}
+            {`From ${dateToStr(state.startDate)} through ${dateToStr(nextDate(state.startDate, false))}`}
          </span>
          <div className={'control_panel_datepicker'}>
             <span> Start date: <br/></span>
